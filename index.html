@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Interactive</title>
+
+<link rel="stylesheet" type="text/css" href="Assets\paper.css">
+<script type="text/javascript" src="Assets/interactive.js"></script>
+<script type="text/javascript" src="Assets\howler.js-master\dist\howler.core.min.js"></script>
+<script type="text/javascript" src="assets\paperjs-v0.10.2\dist\paper-full.js"></script>
+
+<script type="text/paperscript" canvas="myCanvas">
+	var circles=[];
+
+
+var keyData = {
+	q: {
+		sound: new Howl({
+  		src: ['Assets/a/bubbles.mp3']
+		}),
+		color: '#1abc9c'
+	},
+	w: {
+		sound: new Howl({
+  		src: ['Assets/a/clay.mp3']
+		}),
+		color: '#2ecc71'
+	},
+	e: {
+		sound: new Howl({
+  		src: ['Assets/a/confetti.mp3']
+		}),
+		color: '#3498db'
+	},
+	r: {
+		sound: new Howl({
+  		src: ['Assets/a/corona.mp3']
+		}),
+		color: '#9b59b6'
+	},
+		t: {
+		sound: new Howl({
+  		src: ['Assets/a/dotted-spiral.mp3']
+		}),
+		color: '#34495e'
+	},
+	y: {
+		sound: new Howl({
+  		src: ['Assets/a/flash-1.mp3']
+		}),
+		color: '#16a085'
+	},
+	u: {
+		sound: new Howl({
+  		src: ['Assets/a/flash-2.mp3']
+		}),
+		color: '#27ae60'
+	},
+	i: {
+		sound: new Howl({
+  		src: ['Assets/a/flash-3.mp3']
+		}),
+		color: '#2980b9'
+	},
+	o: {
+		sound: new Howl({
+			src: ['Assets/a/glimmer.mp3']
+		}),
+		color: '#8e44ad'
+	},
+	p: {
+		sound: new Howl({
+  		src: ['Assets/a/moon.mp3']
+		}),
+		color: '#2c3e50'
+	},
+	a: {
+		sound: new Howl({
+  		src: ['Assets/a/pinwheel.mp3']
+		}),
+		color: '#f1c40f'
+	},
+	s: {
+		sound: new Howl({
+  		src: ['Assets/a/piston-1.mp3']
+		}),
+		color: '#e67e22'
+	},
+		d: {
+		sound: new Howl({
+  		src: ['Assets/a/piston-2.mp3']
+		}),
+		color: '#e74c3c'
+	},
+	f: {
+		sound: new Howl({
+  		src: ['Assets/a/prism-1.mp3']
+		}),
+		color: '#95a5a6'
+	},
+	g: {
+		sound: new Howl({
+  		src: ['Assets/a/prism-2.mp3']
+		}),
+		color: '#f39c12'
+	},
+	h: {
+		sound: new Howl({
+  		src: ['Assets/a/prism-3.mp3']
+		}),
+		color: '#d35400'
+	},
+	j: {
+		sound: new Howl({
+  		src: ['Assets/a/splits.mp3']
+		}),
+		color: '#1abc9c'
+	},
+	k: {
+		sound: new Howl({
+  		src: ['Assets/a/squiggle.mp3']
+		}),
+		color: '#2ecc71'
+	},
+	l: {
+		sound: new Howl({
+  		src: ['Assets/a/strike.mp3']
+		}),
+		color: '#3498db'
+	},
+	z: {
+		sound: new Howl({
+  		src: ['Assets/a/suspension.mp3']
+		}),
+		color: '#9b59b6'
+	},
+	x: {
+		sound: new Howl({
+  		src: ['Assets/a/timer.mp3']
+		}),
+		color: '#34495e'
+	},
+	c: {
+		sound: new Howl({
+  		src: ['Assets/a/ufo.mp3']
+		}),
+		color: '#16a085'
+	},
+	v: {
+		sound: new Howl({
+  		src: ['Assets/a/veil.mp3']
+		}),
+		color: '#27ae60'
+	},
+	b: {
+		sound: new Howl({
+  		src: ['Assets/a/wipe.mp3']
+		}),
+		color: '#2980b9'
+	},
+	n: {
+		sound: new Howl({
+			src: ['Assets/a/zig-zag.mp3']
+		}),
+		color: '#8e44ad'
+	},
+	m: {
+		sound: new Howl({
+  		src: ['Assets/a/moon.mp3']
+		}),
+		color: '#2c3e50'
+	}
+}
+
+
+
+	function onKeyDown(event) {                  //------------Sets random Point for circle---------THen makes new Circle Var pushed into an array on Keypress... ---   
+if(keyData[event.key]){
+
+
+	var maxPoint= new Point(view.size.width, view.size.height);             //Find the maxSize of screen for coordinates	
+var randomPoint = Point.random();                                            //Get a random number                  --PaperJS.random() method
+var newPoint= maxPoint*randomPoint;                                            //set new radnom Point to be a random number limited to size of screen  
+var newCircle =new Path.Circle(newPoint, 290);                          //Set new Circle coordinates to be random at newPoints
+                                                                          
+                                                                          //-----Below we acess keydata object with coreespoding keyclicks----------
+	newCircle.fillColor=keyData[event.key].color;                         //new circles use keydata object accessing the value at key press and use its color value.
+	keyData[event.key].sound.play();                                    //In KeyData object we acess [event.key](keypress) and play the sound value
+
+ circles.push(newCircle);     }                                               
+	}
+
+
+	function onFrame(event) {                      //----------THis uses circles made after keypress in the array and changes their fill color AND shrinks them with .scale()
+	for(i=0;i<circles.length;i++){
+		circles[i].fillColor.hue+=5;
+		circles[i].scale(0.93);
+		 if(circles[i].area < 1){
+       circles[i].remove();                     <!-- //Deletes from Dom -->
+      circles.splice(i, 1);                        <!--  //Deletes from array -->
+    }
+}
+                    
+	}
+
+
+
+</script>
+
+
+
+
+</head>
+
+<body>		<h1> Press Keys</h1>
+
+	<canvas id="myCanvas" resize>
+		
+
+	</canvas>
+</body>
+</html>
+<!-- 
+
+//if(y==200){
+Path.Circle.fillColor = 'purple';
+	}
+	else if(i==300){
+Path.Circle.fillColor = 'pink';
+	} --> 
