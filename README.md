@@ -1,6 +1,6 @@
 # KeyboardDj 🎹🎧
 
-A Python-based DJ tool that maps your computer keyboard to sound samples. Inspired by the Akai MPK Mini and designed for creative live sound triggering using only your keyboard.
+A JS-based DJ tool that maps your computer keyboard to sound samples. Inspired by the Akai MPK Mini and designed for creative live sound triggering using only your keyboard.
 
 ---
 
